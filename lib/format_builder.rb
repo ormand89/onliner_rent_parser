@@ -1,12 +1,23 @@
 require 'container'
+require 'parse_processor'
 
 class FormatBuilder
-  def initialize(format, *args)
-    @format_service = Container.solve.new(format)
-    @parser_processor = ParseProcessor.new(*args)
+  def initialize(hash_options)
+    #@format_service = Container.solve('json').new
+    @parser_processor = ParseProcessor.new(hash_options)
   end
 
   def build
-    @parser_processor
+    @apartments ||= @parser_processor.parse
+  end
+
+  private
+
+  def sort
+    @apartments.sort
+  end
+
+  def save
+    @format_service.write(@apartments)
   end
 end

@@ -1,26 +1,17 @@
 require 'optparse'
-require 'nokogiri'
-require 'net/http'
-require 'active_support/core_ext/hash'
+require 'format_builder'
 
 class ConsoleController
-  CONSTANT_URL = "https://ak.api.onliner.by/search/apartments?"
+  CONSTANT_URL = "https://ak.api.onliner.by/search/apartments?".freeze
   def initialize
     @options = OptionsParser.new.parse_options
   end
 
   def call
-    page_max = @options[:page]
-    apartments = []
-    while @options[:page] <= page_max
-      url = CONSTANT_URL + @options.to_query
-      res = Net::HTTP.get_response(URI(url))
-      page = res.body if res.is_a?(Net::HTTPSuccess)
-      @options[:page] += 1
-      page_max = page.scan(/\"last\"\:\d{1,}/).to_s.scan(/\d+/).first.to_i
-      apartments.push(page.scan(/https\:\\\/\\\/r\S{10,}.s\\\/\d{4,7}/).map { |val| val.gsub("\\", "") })
-    end
-    apartments.flatten
+    @format_builder = FormatBuilder.new(@options)
+    @format_builder.build
+    #@format_builder.sort if sort
+    #@format_builder.save
   end
 end
 

@@ -1,6 +1,6 @@
-require 'format_services/format_service'
-require 'format_services/csv_service'
-require 'format_services/json_service'
+#require 'format_services/format_service'
+#require 'format_services/csv_service'
+#require 'format_services/json_service'
 
 class Container
   class << self
@@ -20,5 +20,5 @@ class Container
   end
 end
 
-Container.register(:json, CSVFormat)
-Container.register(:csv, JasonFormat)
+#Container.register(:json, CSVFormat)
+#Container.register(:csv, JasonFormat)

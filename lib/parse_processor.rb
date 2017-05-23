@@ -1,13 +1,26 @@
+require 'url_maker'
+require 'apartment_builder'
+
 class ParseProcessor
-  def initialize(*args)
-    @url_maker = URLMaker.new(*args)
-    @html_opener = HTMLOpener.new
-    @appartment_vuilder = AppartmentBuilder.new
+  def initialize(hash_options)
+    @url_maker = URLMaker.new(hash_options)
+    @appartment_builder = ApartmentBuilder.new
   end
 
   def parse
-    url = @url_maker.url
-    max_pages = @html_opener.max_pages(url)
-
+    url = @url_maker.onliner_url
+    apartment_urls = []
+    max_page = @url_maker.max_pages
+    1.upto(max_page) do |page_number|
+      apartment_urls.push(@url_maker.apartments_urls(url))
+      url = @url_maker.next_url(page_number)
+    end
+    apartment_urls.flatten!
+    @appartment_builder.build(apartment_urls[0])
+    #apartments = []
+    #apartment_urls.each do |apartment|
+      #apartments.push(@appartment_builder.build(apartment))
+    #end
+    #apartments
   end
 end
