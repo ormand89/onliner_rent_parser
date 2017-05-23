@@ -16,11 +16,10 @@ class ParseProcessor
       url = @url_maker.next_url(page_number)
     end
     apartment_urls.flatten!
+
     @appartment_builder.build(apartment_urls[0])
     #apartments = []
-    #apartment_urls.each do |apartment|
-      #apartments.push(@appartment_builder.build(apartment))
-    #end
+    #apartment_urls.each { |apartment| apartments.push(@appartment_builder.build(apartment)) }
     #apartments
   end
 end
