@@ -20,8 +20,10 @@ class Apartments
   private
 
   def feature_divider(price, features_number)
-    price / features_number
-    rescue ZeroDivisionError
-    price / 1
+    if features_number.zero?
+      price
+    else
+      price / features_number
+    end
   end
 end

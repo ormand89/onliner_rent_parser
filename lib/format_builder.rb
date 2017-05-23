@@ -20,7 +20,7 @@ class FormatBuilder
     @apartments.sort
   end
 
-  def save(apartaments)
-    @format_service.write(apartaments)
+  def save(apartments)
+    @format_service.write(apartments)
   end
 end

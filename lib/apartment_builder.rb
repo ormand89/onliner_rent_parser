@@ -11,8 +11,7 @@ class ApartmentBuilder
     'owner_name' => :owner_name,
     'phone' => :phone,
     'adress' => :adress,
-    'flat_description'=> :flat_description
-     }.freeze
+    'flat_description'=> :flat_description }.freeze
 
   APARTMENT_FEATURES = {
     'Мебель' => true,
@@ -23,8 +22,7 @@ class ApartmentBuilder
     'Телевизор' => true,
     'Интернет' => true,
     'Лоджия или балкон' => true,
-    'Кондиционер' => true
-  }.freeze
+    'Кондиционер' => true }.freeze
 
   def build(url)
     @apartment = Nokogiri::HTML(Net::HTTP.get(URI(url)))
