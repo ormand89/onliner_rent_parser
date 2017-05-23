@@ -1,6 +1,6 @@
 class FormatService
 
-  def write
+  def write(apartments)
     raise NotImplementedError
   end
 end

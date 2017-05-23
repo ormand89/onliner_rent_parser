@@ -4,14 +4,14 @@ require 'apartments'
 
 class ApartmentBuilder
   APARTMENT_DESCRIPTION = {
-    'price_byn' => :price_byn,
-    'price_usd' => :price_usd,
     'flat_type' => :flat_type,
+    'price_usd' => :price_usd,
+    'price_byn' => :price_byn,
     'owner' => :owner,
     'owner_name' => :owner_name,
     'phone' => :phone,
-    'flat_description'=> :flat_description,
-    'adress' => :adress
+    'adress' => :adress,
+    'flat_description'=> :flat_description
      }.freeze
 
   APARTMENT_FEATURES = {
@@ -64,11 +64,11 @@ class ApartmentBuilder
   end
 
   def phone
-    @apartment.css('div.apartment-info__sub-line')[0].text.strip
+    @apartment.css('div.apartment-info__sub-line')[0].text.strip.gsub("\n", ", ").gsub(/\s{2,}/, "")
   end
 
   def flat_description
-    @apartment.css('div.apartment-info__sub-line')[4].text.strip
+    @apartment.css('div.apartment-info__sub-line')[4].text.strip.gsub("\n", "")
   end
 
   def adress
