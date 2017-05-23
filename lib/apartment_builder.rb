@@ -37,7 +37,7 @@ class ApartmentBuilder
     apartment_features.merge!(APARTMENT_FEATURES)
     features_unavailable.each { |feature| apartment_features[feature] = false }
 
-    apartment_description.merge!(apartment_features)
+    apartment_description['apartment_features'] = apartment_features
     Apartments.new(apartment_description)
   end
 

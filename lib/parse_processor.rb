@@ -17,9 +17,9 @@ class ParseProcessor
     end
     apartment_urls.flatten!
 
-    @appartment_builder.build(apartment_urls[0])
-    #apartments = []
-    #apartment_urls.each { |apartment| apartments.push(@appartment_builder.build(apartment)) }
-    #apartments
+    #@appartment_builder.build(apartment_urls[0])
+    apartments = []
+    apartment_urls.each { |apartment| apartments.push(@appartment_builder.build(apartment)) }
+    apartments
   end
 end

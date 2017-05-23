@@ -4,4 +4,3 @@ require 'console_controller'
 require 'pry'
 
 ConsoleController.new.call
-

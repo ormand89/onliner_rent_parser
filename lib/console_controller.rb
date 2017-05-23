@@ -9,8 +9,8 @@ class ConsoleController
 
   def call
     @format_builder = FormatBuilder.new(@options)
-    @format_builder.build
-    #@format_builder.sort if sort
+    p @format_builder.build
+    p @format_builder.sort
     #@format_builder.save
   end
 end

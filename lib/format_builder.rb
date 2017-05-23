@@ -11,8 +11,6 @@ class FormatBuilder
     @apartments ||= @parser_processor.parse
   end
 
-  private
-
   def sort
     @apartments.sort
   end
