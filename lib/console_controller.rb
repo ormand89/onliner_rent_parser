@@ -3,6 +3,7 @@ require 'format_builder'
 
 class ConsoleController
   CONSTANT_URL = "https://ak.api.onliner.by/search/apartments?".freeze
+
   def initialize
     @options = OptionsParser.new.parse_options
   end
@@ -21,6 +22,7 @@ class OptionsParser
              max: 8500 },
     currency: 'usd',
     metro: ['red_line', 'blue_line'],
+    only_owner: false,
     bounds: { lb: { lat: 53.77865438306248,
                     long: 27.368307803348014 },
               rt: { lat: 54.02541191840544,
