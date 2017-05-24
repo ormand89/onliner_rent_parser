@@ -5,11 +5,11 @@ class ConsoleController
   CONSTANT_URL = "https://ak.api.onliner.by/search/apartments?".freeze
 
   def initialize
-    @options = OptionsParser.new.parse_options
+    @opt = OptionsParser.new.parse_options
   end
 
   def call
-    FormatBuilder.new(@options.file_format, @options.sort_option, @options.apartments_parameters).build
+    FormatBuilder.new(@opt.file_format, @opt.sort_option, @opt.file_path, @opt.apartments_parameters).build
   end
 end
 
@@ -27,9 +27,10 @@ class OptionsParser
               rt: { lat: 54.02541191840544,
                     long: 27.75637209747086 } },
     page: 1 }.freeze
+  OUTPUT_PATH = ''
 
   def parse_options
-    file_format, sort_option = FILE_FORMAT, SORT_OPTIONS
+    file_format, sort_option, file_path = FILE_FORMAT, SORT_OPTIONS, OUTPUT_PATH
     flat_parameters = {}
     flat_parameters.merge!(DEFAULT_ARGS)
     OptionParser.new do|opts|
@@ -41,17 +42,19 @@ class OptionsParser
       opts.on('-oOWNER', '--owner OWNER', String) { |value| flat_parameters[:only_owner] = value }
       opts.on('-sSORT', '--sort SORT') { |sort| sort_option = sort.downcase }
       opts.on('-fFORMAT', '--file_format FORMAT') { |value| file_format = value.downcase }
+      opts.on('-PATH', '--path PATH') { |path| file_path = path }
     end.parse!
-    Options.new(file_format, sort_option, flat_parameters)
+    Options.new(file_format, sort_option, file_path, flat_parameters)
   end
 end
 
 class Options
-  attr_reader :file_format, :sort_option, :apartments_parameters
+  attr_reader :file_format, :sort_option, :file_path, :apartments_parameters
 
-  def initialize(file_format, sort_option, apartments_parameters)
+  def initialize(file_format, sort_option, file_path, apartments_parameters)
     @file_format = file_format
     @sort_option = sort_option
+    @file_path = file_path
     @apartments_parameters = apartments_parameters
   end
 end
