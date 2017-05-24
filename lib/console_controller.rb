@@ -15,7 +15,7 @@ end
 
 class OptionsParser
   FILE_FORMAT = 'json'.freeze
-  SORT_OPTIONS = false.freeze
+  SORT_OPTIONS = false
   DEFAULT_ARGS = {
     rent_type: ['room', '1_room', '2_rooms', '3_rooms', '4_rooms', '5_rooms', '6_rooms'],
     price: { min: 50,
