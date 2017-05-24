@@ -9,7 +9,7 @@ class ConsoleController
   end
 
   def call
-    FormatBuilder.new(*@options).build
+    FormatBuilder.new(@options.file_format, @options.sort_option, @options.apartments_parameters).build
   end
 end
 
@@ -22,7 +22,6 @@ class OptionsParser
              max: 8500 },
     currency: 'usd',
     metro: ['red_line', 'blue_line'],
-    only_owner: false,
     bounds: { lb: { lat: 53.77865438306248,
                     long: 27.368307803348014 },
               rt: { lat: 54.02541191840544,
@@ -43,6 +42,16 @@ class OptionsParser
       opts.on('-sSORT', '--sort SORT') { |sort| sort_option = sort.downcase }
       opts.on('-fFORMAT', '--file_format FORMAT') { |value| file_format = value.downcase }
     end.parse!
-    [file_format, sort_option, flat_parameters]
+    Options.new(file_format, sort_option, flat_parameters)
+  end
+end
+
+class Options
+  attr_reader :file_format, :sort_option, :apartments_parameters
+
+  def initialize(file_format, sort_option, apartments_parameters)
+    @file_format = file_format
+    @sort_option = sort_option
+    @apartments_parameters = apartments_parameters
   end
 end

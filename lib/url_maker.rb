@@ -5,8 +5,8 @@ require 'json'
 class URLMaker
   CONSTANT_URL = "https://ak.api.onliner.by/search/apartments?".freeze
 
-  def initialize(hash_options)
-    @options = hash_options
+  def initialize(apartments_options)
+    @options = apartments_options
   end
 
   def onliner_url
@@ -17,7 +17,7 @@ class URLMaker
     onliner_url.gsub(/page=\d{1,}/, "page=#{page_number + 1}")
   end
 
-  def max_pages
+  def last_page
     JSON(Net::HTTP.get(URI(onliner_url)))['page']['last']
     #Net::HTTP.get(URI(onliner_url)).scan(/\"last\"\:\d{1,}/).to_s.scan(/\d+/).first.to_i
   end

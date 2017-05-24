@@ -2,23 +2,33 @@ require 'url_maker'
 require 'apartment_builder'
 
 class ParseProcessor
-  def initialize(hash_options)
-    @url_maker = URLMaker.new(hash_options)
+  def initialize(apartments_options)
+    @url_maker = URLMaker.new(apartments_options)
     @appartment_builder = ApartmentBuilder.new
   end
 
-  def parse
-    url = @url_maker.onliner_url
-    apartment_urls = []
-    max_page = @url_maker.max_pages
-    1.upto(max_page) do |page_number|
-      apartment_urls.push(@url_maker.apartments_urls(url))
-      url = @url_maker.next_url(page_number)
-    end
-    apartment_urls.flatten!
-
+  def apartments
+    flat_urls = apartment_urls(onliner_main_urls)
     apartments = []
-    apartment_urls.each { |apartment| apartments.push(@appartment_builder.build(apartment)) }
+    flat_urls.each { |flat| apartments.push(@appartment_builder.build(flat)) }
     apartments
+  end
+
+  private
+
+  def onliner_main_urls
+    urls = []
+    (@url_maker.last_page).times do |page_number|
+      urls.push(@url_maker.next_url(page_number))
+    end
+    urls
+  end
+
+  def apartment_urls(onliner_urls)
+    urls = []
+    onliner_urls.each do |page|
+      urls.push(@url_maker.apartments_urls(page))
+    end
+    urls.flatten!
   end
 end

@@ -24,22 +24,29 @@ class ApartmentBuilder
     'Лоджия или балкон' => true,
     'Кондиционер' => true }.freeze
 
-  def build(url)
-    @apartment = Nokogiri::HTML(Net::HTTP.get(URI(url)))
-
-    apartment_description = {}
-    apartment_description.merge!(APARTMENT_DESCRIPTION)
-    apartment_description.keys.each { |key| apartment_description[key] = send(apartment_description[key]) }
-
-    apartment_features = {}
-    apartment_features.merge!(APARTMENT_FEATURES)
-    features_unavailable.each { |feature| apartment_features[feature] = false }
-
-    apartment_description['apartment_features'] = apartment_features
-    Apartments.new(apartment_description)
+  def build(apartment_url)
+    @apartment = Nokogiri::HTML(Net::HTTP.get(URI(apartment_url)))
+    description = apartment_description
+    features = apartment_features
+    description['apartment_features'] = features
+    Apartments.new(description)
   end
 
   private
+
+  def apartment_description
+    apartment_description = {}
+    apartment_description.merge!(APARTMENT_DESCRIPTION)
+    apartment_description.keys.each { |key| apartment_description[key] = send(apartment_description[key]) }
+    apartment_description
+  end
+
+  def apartment_features
+    apartment_features = {}
+    apartment_features.merge!(APARTMENT_FEATURES)
+    features_unavailable.each { |feature| apartment_features[feature] = false }
+    apartment_features
+  end
 
   def price_byn
     @apartment.css('span.apartment-bar__price-value_primary').text.strip.gsub(/\s/, "")

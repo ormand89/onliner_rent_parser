@@ -12,14 +12,15 @@ RSpec.describe OptionsParser do
             price: { min: price_min, max: price_max },
             currency: 'usd',
             metro: underground,
-            only_owner: owner,
             bounds: { lb: { lat: 53.77865438306248, long: 27.368307803348014 },
                       rt: { lat: 54.02541191840544, long: 27.75637209747086 } },
             page: 1 } }
-        let(:options) { [format, sort, flat_hash] }
-
+        let(:options) { Options.new(format, sort, flat_hash) }
+        let(:parsed_options) { console.parse_options }
         it 'return correct options' do
-          expect(console.parse_options ).to eql(options)
+          expect(parsed_options.apartments_parameters ).to eq(options.apartments_parameters)
+          expect(parsed_options.sort_option ).to eq(options.sort_option)
+          expect(parsed_options.file_format ).to eq(options.file_format)
         end
       end
     end
