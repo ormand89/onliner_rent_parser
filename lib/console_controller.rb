@@ -27,7 +27,7 @@ class OptionsParser
               rt: { lat: 54.02541191840544,
                     long: 27.75637209747086 } },
     page: 1 }.freeze
-  OUTPUT_PATH = ''
+  OUTPUT_PATH = File.expand_path("../", File.dirname(__FILE__))
 
   def parse_options
     file_format, sort_option, file_path = FILE_FORMAT, SORT_OPTIONS, OUTPUT_PATH
