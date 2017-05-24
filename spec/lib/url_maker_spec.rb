@@ -39,7 +39,7 @@ RSpec.describe URLMaker do
 
   describe '#last_page' do
     it 'return correct page number' do
-      expect(url_maker.last_page(url)).to eql(3)
+      expect(url_maker.last_page(url)).to eql(2)
     end
   end
 
