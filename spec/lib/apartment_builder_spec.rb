@@ -3,39 +3,38 @@ require 'apartment_builder'
 
 RSpec.describe ApartmentBuilder do
 
-  let(:url) { 'https://github.com/ormand89/onliner_rent_parser/blob/master/spec/fixtures/flat.html' }
-
+  let(:url) { 'https://raw.githubusercontent.com/ormand89/onliner_rent_parser/master/spec/fixtures/flat.html' }
   let(:description) { {
-    'flat_type' => '2-комнатная квартира',
-    'price_usd' => '200$',
-    'price_byn' => '370,48р.',
-    'owner' => 'Агент',
-    'owner_name' => 'Марина',
-    'phone' => '+375 29 631-95-55',
-    'adress' => '2-х ком.кв (Зеленый Луг)ул Гамарника д 1.',
-    'flat_description'=> 'Аккуратная 2-х ком.кв (Зеленый Луг)ул Гамарника д 1.'\
-                         'Стеклопакеты,металическая дверь,вся мебель,стиральная машина,холодильник.'\
-                         'Не евро,но после косм.ремонта.Прописан 1 человек.',
+    'flat_type' => '1-комнатная квартира',
+    'price_usd' => '230$',
+    'price_byn' => '426,08р.',
+    'owner' => 'Собственник',
+    'owner_name' => 'Александр',
+    'phone' => '+375 29 544-77-40',
+    'adress' => 'Минск, улица Чичурина, 8',
+    'flat_description'=> 'Сдаю 1-а комнатную квартиру, 2012 год постройки. 46/18/10. 10-й этаж.'\
+                         ' Встроенные шкафы коридор и комната. Полность кухня, с холодильником.'\
+                         ' Горка в комнате. Сан/узлы плитка. Лоджия большая, обитания вагонкой.'\
+                         ' Входная дверь металлическая, хорошего качества. До метро 10 мин. пешком или 4 остановки.'\
+                         ' Цена договорная, на длительный срок, не студентам. 8 (029) 544-77-40.',
     'apartment_features' => {
       'Мебель' => true,
       'Кухонная мебель' => true,
       'Плита' => true,
       'Холодильник' => true,
-      'Стиральная машина' => true,
+      'Стиральная машина' => false,
       'Телевизор' => true,
-      'Интернет' => false,
+      'Интернет' => true,
       'Лоджия или балкон' => true,
       'Кондиционер' => false } } }
 
   subject(:apartment_builder) { described_class.new }
   let(:apartment) { subject.build(url) }
-
   describe '#build' do
 
     it 'make apartment using url' do
       expect(apartment.class).to eql(Apartments)
       expect(apartment.description).to eql(description)
-
     end
   end
 end
