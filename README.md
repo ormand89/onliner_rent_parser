@@ -3,7 +3,7 @@ Online rent parser
   Description
   -----------
     It provides parsing apartments descriptions using input options. Output format json or csv.
-  You can range apartments using sort option.
+    You can range apartments using sort option.
   
   Default parameters 
   ------------------
