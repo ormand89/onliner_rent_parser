@@ -1,9 +1,8 @@
 require 'spec_helper'
 require 'format_builder'
-require 'console_controller'
+
 
 RSpec.describe FormatBuilder do
-
   let(:apartments_options) {
     { rent_type: ['room', '1_room'],
       price: { min: 150, max: 160 },
@@ -15,8 +14,7 @@ RSpec.describe FormatBuilder do
   let(:path) { File.expand_path("../fixtures", File.dirname(__FILE__)) }
   let(:format) { 'json' }
   let(:sort) { 'true' }
-  let(:opts) { Options.new(format, sort, path, apartments_options) }
-  subject(:builder) { described_class.new(opts.file_format, opts.sort_option, opts.file_path, opts.apartments_parameters ) }
+  subject(:builder) { described_class.new(format, sort, path, apartments_options) }
 
   describe '#build' do
     it 'return apartments in json format' do
