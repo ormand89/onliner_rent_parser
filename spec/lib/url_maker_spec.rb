@@ -7,9 +7,9 @@ RSpec.describe URLMaker do
       :price => { :min => "50", :max => "200" },
       :currency => "usd",
       :metro => ["red_line", "blue_line"],
-      :bounds => { :lb=>{ :lat => 53.77865438306248, :long => 27.368307803348014},
-          :rt => { :lat => 54.02541191840544, :long => 27.75637209747086}},
-      :page=>1 } }
+      :bounds => { :lb => { :lat => 53.77865438306248, :long => 27.368307803348014 },
+          :rt => { :lat => 54.02541191840544, :long => 27.75637209747086 } },
+      :page =>1 } }
 
   subject(:url_maker) { described_class.new(flat_hash) }
 
@@ -43,7 +43,7 @@ RSpec.describe URLMaker do
     end
   end
 
-    describe '#apartments_urls' do
+  describe '#apartments_urls' do
     it 'return urls each apartment as array' do
       expect(url_maker.apartments_urls(url).size).to eql(36)
     end

@@ -7,9 +7,9 @@ RSpec.describe ParseProcessor do
       :price => { :min => "150", :max => "200" },
       :currency => "usd",
       :metro => ["red_line", "blue_line"],
-      :bounds => { :lb=>{ :lat => 53.77865438306248, :long => 27.368307803348014},
-          :rt => { :lat => 54.02541191840544, :long => 27.75637209747086}},
-      :page=>1 } }
+      :bounds => { :lb => { :lat => 53.77865438306248, :long => 27.368307803348014 },
+          :rt => { :lat => 54.02541191840544, :long => 27.75637209747086 } },
+      :page => 1 } }
 
   subject(:parse_processor) { described_class.new(flat_hash) }
 

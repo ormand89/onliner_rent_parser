@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'apartment_builder'
 
 RSpec.describe ApartmentBuilder do
-
   let(:url) { 'https://raw.githubusercontent.com/ormand89/onliner_rent_parser/master/spec/fixtures/flat.html' }
   let(:description) { {
     'flat_type' => '1-комнатная квартира',

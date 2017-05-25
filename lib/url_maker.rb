@@ -19,7 +19,7 @@ class URLMaker
 
   def last_page(url = onliner_url)
     JSON(Net::HTTP.get(URI(url)))['page']['last']
-    #Net::HTTP.get(URI(onliner_url)).scan(/\"last\"\:\d{1,}/).to_s.scan(/\d+/).first.to_i
+    #Net::HTTP.get(URI(url)).scan(/\"last\"\:\d{1,}/).to_s.scan(/\d+/).first.to_i
   end
 
   def apartments_urls(url)
