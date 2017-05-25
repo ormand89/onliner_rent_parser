@@ -1,1 +1,27 @@
 require 'spec_helper'
+require 'format_builder'
+require 'console_controller'
+
+RSpec.describe FormatBuilder do
+
+  let(:apartments_options) {
+    { rent_type: ['room', '1_room'],
+      price: { min: 150, max: 160 },
+      currency: 'usd',
+      metro: ['red_line', 'blue_line'],
+      bounds: { lb: { lat: 53.77865438306248, long: 27.368307803348014 },
+                rt: { lat: 54.02541191840544, long: 27.75637209747086 } },
+      page: 1 } }
+  let(:path) { File.expand_path("../fixtures", File.dirname(__FILE__)) }
+  let(:format) { 'json' }
+  let(:sort) { 'true' }
+  let(:opts) { Options.new(format, sort, path, apartments_options) }
+  subject(:builder) { described_class.new(opts.file_format, opts.sort_option, opts.file_path, opts.apartments_parameters ) }
+
+  describe '#build' do
+    it 'return apartments in json format' do
+      expect(builder.build.size ).to be > 5
+      expect(File.file?("#{path}/myfile.json")).to eq (true)
+    end
+  end
+end
