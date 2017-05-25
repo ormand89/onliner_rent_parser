@@ -1,7 +1,6 @@
 require 'spec_helper'
 require 'format_builder'
 
-
 RSpec.describe FormatBuilder do
   let(:apartments_options) {
     { rent_type: ['room', '1_room'],
