@@ -1,16 +1,26 @@
 require 'url_maker'
 require 'apartment_builder'
+require 'thread'
 
 class ParseProcessor
+  THREAD_COUNT = 12
+
   def initialize(apartments_options)
     @url_maker = URLMaker.new(apartments_options)
-    @appartment_builder = ApartmentBuilder.new
   end
 
   def apartments
     flat_urls = apartment_urls(onliner_main_urls)
     apartments = []
-    flat_urls.each { |flat| apartments.push(@appartment_builder.build(flat)) }
+    mutex = Mutex.new
+    THREAD_COUNT.times.map {
+      Thread.new(flat_urls, apartments) do |flat_urls, apartments|
+        while url = mutex.synchronize { flat_urls.pop }
+          apartment = ApartmentBuilder.new.build(url)
+          mutex.synchronize { apartments << apartment }
+        end
+      end
+    }.each(&:join)
     apartments
   end
 

@@ -4,7 +4,7 @@ require 'format_builder'
 RSpec.describe FormatBuilder do
   let(:apartments_options) {
     { rent_type: ['room', '1_room'],
-      price: { min: 150, max: 160 },
+      price: { min: 150, max: 190 },
       currency: 'usd',
       metro: ['red_line', 'blue_line'],
       bounds: { lb: { lat: 53.77865438306248, long: 27.368307803348014 },
