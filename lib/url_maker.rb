@@ -17,8 +17,8 @@ class URLMaker
     onliner_url.gsub(/page=\d{1,}/, "page=#{page_number + 1}")
   end
 
-  def last_page(url = nil)
-    JSON(Net::HTTP.get(URI(onliner_url)))['page']['last']
+  def last_page(url = onliner_url)
+    JSON(Net::HTTP.get(URI(url)))['page']['last']
     #Net::HTTP.get(URI(onliner_url)).scan(/\"last\"\:\d{1,}/).to_s.scan(/\d+/).first.to_i
   end
 
