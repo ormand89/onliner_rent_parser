@@ -9,18 +9,22 @@ class FormatBuilder
   end
 
   def build
-    @apartments ||= @parser_processor.apartments
-    @apartments.sort! if @sort_option
-    save(@apartments)
+    apartments
+    sort
+    save
   end
 
   private
 
-  def sort
-    @apartments.sort
+  def apartments
+    @apartments ||= @parser_processor.apartments
   end
 
-  def save(apartments)
-    @format_service.write(apartments)
+  def sort
+    @apartments.sort! if @sort_option
+  end
+
+  def save
+    @format_service.write(@apartments)
   end
 end
