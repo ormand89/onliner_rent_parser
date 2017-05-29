@@ -24,6 +24,9 @@ class ApartmentBuilder
     'Лоджия или балкон' => true,
     'Кондиционер' => true }.freeze
 
+  # Build Apartments using their description and features. Get HTML, then parse it and collect parameters.
+  # @param apartment_url [String] url of our future Apartments
+  # @return [Apartments]
   def build(apartment_url)
     @apartment = Nokogiri::HTML(Net::HTTP.get(URI(apartment_url)))
     description = apartment_description
@@ -34,6 +37,8 @@ class ApartmentBuilder
 
   private
 
+  # Makes common apartments description. Hash, based on constant APARTMENT_DESCRIPTION, first merge it, then find unique description
+  # @return [Hash] hash
   def apartment_description
     apartment_description = {}
     apartment_description.merge!(APARTMENT_DESCRIPTION)
@@ -41,6 +46,8 @@ class ApartmentBuilder
     apartment_description
   end
 
+  # Makes common apartments features. Hash, based on constant APARTMENT_FEATURES, first merge it, then find unique features
+  # @return [Hash] hash
   def apartment_features
     apartment_features = {}
     apartment_features.merge!(APARTMENT_FEATURES)
